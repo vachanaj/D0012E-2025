@@ -75,7 +75,7 @@ def run_tests():
     print("-" * 40)
 
 
-# run_tests()
+run_tests()
 
 
 # The recurrence relation for this algorithm is T(n) = 2T(n/2) + O(n), 

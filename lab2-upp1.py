@@ -129,19 +129,5 @@ def run_tests():
     print(f"Array: {A2_no}. Result (1=True): {check_sum_n2(A2_no)}")   # Expected: 0
     print("-" * 40)
 
-    print("--- Testing Algorithm 2: Max Subarray Sum (D&C) ---")
-    A3_standard = [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7]
-    # Max sum: 18 + 20 + -7 + 12 = 43 (subarray [18, 20, -7, 12])
-    print(f"Array: {A3_standard}. Max Sum: {max_subarray_sum_dc(A3_standard)}") # Expected: 43
-    
-    A3_left = [1, 2, -100, 3, 4] 
-    # Max sum: 3 (subarray [1, 2])
-    print(f"Array: {A3_left}. Max Sum: {max_subarray_sum_dc(A3_left)}") # Expected: 3
-    
-    A3_all_negative = [-2, -5, -1, -8] 
-    # Max sum: -1 (subarray [-1])
-    print(f"Array: {A3_all_negative}. Max Sum: {max_subarray_sum_dc(A3_all_negative)}") # Expected: -1
-    print("-" * 40)
-
 # Uncomment the line below to run the tests when the script is executed
-# run_tests()
+run_tests()
