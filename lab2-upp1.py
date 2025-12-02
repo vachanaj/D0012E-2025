@@ -113,3 +113,35 @@ def check_sum_n2(A, n=None, sorted_A=None):
 
 # The recurrence relation for the recursive part is T(n) = T(n-1) + O(n), 
 # which solves to T(n) = O(n^2). The initial O(n^2) sort makes the total complexity Theta(n^2).
+
+def run_tests():
+    print("--- Testing Algorithm 1.1: Theta(n^3) x + y = z ---")
+    A1_yes = [1, 5, 10, 2, 7]  # 2 + 5 = 7
+    A1_no = [1, 2, 4, 8, 16]   # No x + y = z
+    print(f"Array: {A1_yes}. Result (1=True): {check_sum_n3(A1_yes)}") # Expected: 1
+    print(f"Array: {A1_no}. Result (1=True): {check_sum_n3(A1_no)}")   # Expected: 0
+    print("-" * 40)
+
+    print("--- Testing Algorithm 1.2: Theta(n^2) x + y = z ---")
+    A2_yes = [10, 5, 1, 7, 2]  # Unsorted array, should work (2 + 5 = 7)
+    A2_no = [1, 2, 4, 8, 16]   
+    print(f"Array: {A2_yes}. Result (1=True): {check_sum_n2(A2_yes)}") # Expected: 1
+    print(f"Array: {A2_no}. Result (1=True): {check_sum_n2(A2_no)}")   # Expected: 0
+    print("-" * 40)
+
+    print("--- Testing Algorithm 2: Max Subarray Sum (D&C) ---")
+    A3_standard = [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7]
+    # Max sum: 18 + 20 + -7 + 12 = 43 (subarray [18, 20, -7, 12])
+    print(f"Array: {A3_standard}. Max Sum: {max_subarray_sum_dc(A3_standard)}") # Expected: 43
+    
+    A3_left = [1, 2, -100, 3, 4] 
+    # Max sum: 3 (subarray [1, 2])
+    print(f"Array: {A3_left}. Max Sum: {max_subarray_sum_dc(A3_left)}") # Expected: 3
+    
+    A3_all_negative = [-2, -5, -1, -8] 
+    # Max sum: -1 (subarray [-1])
+    print(f"Array: {A3_all_negative}. Max Sum: {max_subarray_sum_dc(A3_all_negative)}") # Expected: -1
+    print("-" * 40)
+
+# Uncomment the line below to run the tests when the script is executed
+# run_tests()
