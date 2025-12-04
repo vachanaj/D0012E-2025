@@ -6,10 +6,9 @@ import matplotlib.pyplot as plt
 # --- Provided Functions ---
 
 def check_sum_n2(A, n=None):
-    """
-    checks for x + y = z in A using a O(n^2) incremental approach 
-    and sorting the prefix A[0...n-1] in place.
-    """
+    #checks for x + y = z in A using a O(n^2) incremental approach 
+    #and sorting the prefix A[0...n-1] in place.
+
     if n is None: #check len of n
         k = 0
         while True:
@@ -62,7 +61,6 @@ def check_sum_n2(A, n=None):
             j -= 1    # smaller sum
             
     return 0
-
 
 
 # --- Helper Functions for Timing ---
