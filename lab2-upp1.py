@@ -14,11 +14,11 @@ def check_sum_n2(A, n=None):
     
     # base case
     if n < 3:
-        return 0
+        return False
 
     # check the subarray A[0...n-2], return 1 if true
     if check_sum_n2(A, n - 1):
-        return 1
+        return True
     
     # incremental sort (insertion sort step - O(n))
     # A[0...n-2] is sorted. insert A[n-1] into the correct spot in A[0...n-1]
@@ -31,29 +31,55 @@ def check_sum_n2(A, n=None):
     while j >= 0 and A[j] > a_n:
         A[j + 1] = A[j] 
         j -= 1
-        
-    # insert a_n into its sorted position
-    A[j + 1] = a_n
-
-    # check Triplet (x + y = z)
-    # and if A[i] + A[j] = A[n-1] for i, j < n-1 using two pointers on the sorted prefix
-    z = A[n - 1]
+    pos = j + 1         # position to insert a_n
+    A[pos] = a_n
     
     i = 0         # left pointer
-    j = n - 2     # right
+    j = n - 1     # right
     
+    #x + y = a_n
     while i < j:
+        if i == pos:
+            i += 1
+            continue
+        if j == pos:
+            j -= 1
+            continue
+
         S = A[i] + A[j]
         
-        if S == z:
-            # x + y = z, where z is the new sorted element
-            return 1
-        elif S < z:
+        if S == a_n:
+            return True
+        elif S < a_n:
             i += 1    # larger sum
-        else: # S > z
+        else: # S > a_n
             j -= 1    # smaller sum
+
+    i = 0         # left pointer
+    j = 0         # right
+    
+    #y - x = new_val (equivalent to x + new_val = y)
+    while i < n and j < n:
+        if i == pos:
+            i += 1
+            continue
+        if j == pos:
+            j += 1
+            continue
+        if i == j:
+            j += 1
+            continue
+
+        d = A[j] - A[i]
+        
+        if d == a_n:
+            return True
+        elif d < a_n:
+            i += 1    # larger sum
+        else: 
+            i += 1    # smaller sum
             
-    return 0
+    return False
 
 
 
@@ -64,11 +90,11 @@ def check_sum_n3(A, n=None):
         n = len(A)
     
     if n < 3:
-        return 0
+        return False
 
     #recursively check the subarray A[0...n-2]
     if check_sum_n3(A, n - 1):
-        return 1
+        return True
     
     #check if the new element A[n-1] completes a triplet with elements from A[0...n-2]
     a_n = A[n - 1]
@@ -83,36 +109,19 @@ def check_sum_n3(A, n=None):
                 #check the three possibilities for x + y = z:
                 # 1. a_i + a_j = a_n (z = a_n)
                 if a_i + a_j == a_n:
-                    return 1
+                    return True
                 # 2. a_i + a_n = a_j (z = a_j)
                 if a_i + a_n == a_j:
-                    return 1
+                    return True
                 # 3. a_n + a_j = a_i (z = a_i)
                 if a_n + a_j == a_i:
-                    return 1
+                    return True
             j += 1
         i += 1
         
     #no triplet found involving the new element or in the subproblem
-    return 0
+    return False
 
-#helper function TA BORT o fixa linjär på o(n^2)
-def selection_sort(A):
-    n = len(A)
-    i = 0
-    while i < n - 1:
-        min_idx = i
-        j = i + 1
-        while j < n:
-            if A[j] < A[min_idx]:
-                min_idx = j
-            j += 1
-        temp = A[i]
-        A[i] = A[min_idx]
-        A[min_idx] = temp
-        i += 1
-
-    return A
 
 def run_tests():
     print("* testing Algorithm 1.1: Theta(n^3) x + y = z")
@@ -127,6 +136,5 @@ def run_tests():
     A2_no = [1, 2, 4, 8, 16]   
     print(f"Array: {A2_yes}. Result (1=True): {check_sum_n2(A2_yes)}") 
     print(f"Array: {A2_no}. Result (1=True): {check_sum_n2(A2_no)}") 
-    print("-" * 40)
     
 run_tests()
